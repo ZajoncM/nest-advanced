@@ -21,10 +21,10 @@ export class TestGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    console.log(roles, overridedRoles, mergedRoles);
+    // console.log(roles, overridedRoles, mergedRoles);
 
     const request = context.switchToHttp().getRequest<Request>();
-    console.log(request.headers);
+    // console.log(request.headers);
 
     return true;
   }
