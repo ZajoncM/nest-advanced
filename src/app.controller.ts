@@ -11,7 +11,7 @@ export class AppController {
   @Get()
   @UseGuards(TestGuard)
   @Roles('test')
-  getHello(): string {
+  getHello() {
     return this.appService.getHello();
   }
 }

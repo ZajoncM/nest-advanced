@@ -1,10 +1,14 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClsModule } from 'nestjs-cls';
+import { ExampleService } from './example/example.service';
+import { ExampleTwoService } from './example-two/example-two.service';
+import { ExampleThreeService } from './example-three/example-three.service';
 
 @Module({
   imports: [
+    CacheModule.register(),
     ClsModule.forRoot({
       middleware: {
         // automatically mount the
@@ -19,6 +23,6 @@ import { ClsModule } from 'nestjs-cls';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ExampleService, ExampleTwoService, ExampleThreeService],
 })
 export class AppModule {}
