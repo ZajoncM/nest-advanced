@@ -31,12 +31,8 @@ export class UserService {
     return user.save();
   }
 
-  async update(id: number, userDto: UpdateUserDto) {
-    const user = await this.userRepository.preload({ id, ...userDto });
-
-    if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
-    }
+  async update(userDto: UpdateUserDto) {
+    const user = await this.userRepository.preload(userDto);
 
     return user.save();
   }

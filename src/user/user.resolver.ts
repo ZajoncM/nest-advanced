@@ -30,11 +30,8 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  async userUpdate(
-    @Args({ name: 'id', type: () => Int }) id: number,
-    @Args('user') book: UpdateUserDto,
-  ) {
-    return this.userService.update(id, book);
+  async userUpdate(@Args('user') book: UpdateUserDto) {
+    return this.userService.update(book);
   }
 
   @ResolveField()
