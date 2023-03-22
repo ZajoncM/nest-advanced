@@ -1,6 +1,6 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-import { TestGuard } from './test.guard';
+import { TestGuard } from './utils/test.guard';
 import { Roles } from './roles.decorator';
 
 @Controller()
@@ -8,8 +8,8 @@ import { Roles } from './roles.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
   @UseGuards(TestGuard)
+  @Get()
   @Roles('test')
   getHello() {
     return this.appService.getHello();

@@ -5,6 +5,12 @@ import { ClsModule } from 'nestjs-cls';
 import { ExampleService } from './example/example.service';
 import { ExampleTwoService } from './example-two/example-two.service';
 import { ExampleThreeService } from './example-three/example-three.service';
+import { DatabaseModule } from './database/database.module';
+import { UserModule } from './user/user.module';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLModule } from '@nestjs/graphql';
+import { TestGuard } from './utils/test.guard';
+import { BookModule } from './book/book.module';
 
 @Module({
   imports: [
@@ -21,8 +27,22 @@ import { ExampleThreeService } from './example-three/example-three.service';
         },
       },
     }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+      installSubscriptionHandlers: true,
+    }),
+    DatabaseModule,
+    UserModule,
+    BookModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ExampleService, ExampleTwoService, ExampleThreeService],
+  providers: [
+    TestGuard,
+    AppService,
+    ExampleService,
+    ExampleTwoService,
+    ExampleThreeService,
+  ],
 })
 export class AppModule {}
