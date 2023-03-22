@@ -9,8 +9,9 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
-import { TestGuard } from './utils/test.guard';
 import { BookModule } from './book/book.module';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { GqlAuthGuard } from './utils/gql-auth.guard';
 
 @Module({
   imports: [
@@ -27,6 +28,9 @@ import { BookModule } from './book/book.module';
         },
       },
     }),
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production',
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -38,7 +42,7 @@ import { BookModule } from './book/book.module';
   ],
   controllers: [AppController],
   providers: [
-    TestGuard,
+    GqlAuthGuard,
     AppService,
     ExampleService,
     ExampleTwoService,

@@ -4,11 +4,11 @@ import { BookService } from './book.service';
 import { Book } from './book.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/user/user.module';
-import { GqlAuthGuard } from 'src/utils/gql-auth.guard';
+import BookLoaders from './book.loader';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Book]), forwardRef(() => UserModule)],
-  providers: [GqlAuthGuard, BookResolver, BookService],
+  providers: [BookResolver, BookService, BookLoaders],
   exports: [BookService],
 })
 export class BookModule {}

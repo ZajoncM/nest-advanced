@@ -8,8 +8,8 @@ import { Roles } from './roles.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(TestGuard)
   @Get()
+  @UseGuards(TestGuard)
   @Roles('test')
   getHello() {
     return this.appService.getHello();

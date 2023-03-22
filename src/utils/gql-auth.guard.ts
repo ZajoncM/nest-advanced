@@ -1,12 +1,14 @@
-import { Injectable, ExecutionContext } from '@nestjs/common';
+import { Injectable, ExecutionContext, CanActivate } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class GqlAuthGuard {
-  getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context);
+export class GqlAuthGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const { req } = GqlExecutionContext.create(context).getContext();
 
-    console.log(ctx.getContext().req);
-    return true;
+    return req.headers?.test === '123';
   }
 }
