@@ -14,6 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
+  app.enableCors();
+
   const configService = app.get(ConfigService);
 
   config.update({

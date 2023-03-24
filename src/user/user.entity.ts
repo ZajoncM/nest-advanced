@@ -24,4 +24,10 @@ export class User extends BaseEntity {
   @Field(() => [Book])
   @OneToMany(() => Book, (book) => book.user)
   books: Book[];
+
+  @Column({ nullable: true })
+  email: string;
+
+  @Column({ nullable: true })
+  externalId: string;
 }

@@ -25,6 +25,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { id } });
   }
 
+  async findOneByExternalId(externalId: User['externalId']) {
+    return this.userRepository.findOne({ where: { externalId } });
+  }
+
   async create(createUserDto: CreateUserDto) {
     const user = await this.userRepository.create(createUserDto);
 

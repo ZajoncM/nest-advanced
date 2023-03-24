@@ -4,7 +4,6 @@ import {
   Header,
   Param,
   Post,
-  Res,
   StreamableFile,
   UploadedFile,
   UseInterceptors,
