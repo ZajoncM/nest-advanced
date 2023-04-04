@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { FindOptionsWhere, In, MoreThan, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
+import { WhereClauseCondition } from 'typeorm/query-builder/WhereClause';
 
 @Injectable()
 export class UserService {
@@ -11,8 +12,22 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findAll() {
-    return this.userRepository.find();
+  async findAll(cursor?: number) {
+    let where: FindOptionsWhere<User> = {};
+
+    if (cursor) {
+      where = { id: MoreThan(cursor) };
+    }
+
+    const users = await this.userRepository.find({
+      order: { id: 'ASC' },
+      take: 10,
+      where,
+    });
+
+    const lastCursor = users.length > 0 ? users[users.length - 1].id : null;
+
+    return { results: users, lastCursor };
   }
 
   async getByIds(ids: number[]) {

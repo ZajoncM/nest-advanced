@@ -7,9 +7,9 @@ import { UserService } from 'src/user/user.service';
 export default class BookLoaders {
   constructor(private userService: UserService) {}
 
-  public readonly batchUsers = new DataLoader(async (authorIds: number[]) => {
-    const users = await this.userService.getByIds(authorIds);
+  public readonly batchUsers = new DataLoader(async (userIds: number[]) => {
+    const users = await this.userService.getByIds(userIds);
     const usersMap = new Map(users.map((user) => [user.id, user]));
-    return authorIds.map((authorId) => usersMap.get(authorId));
+    return userIds.map((authorId) => usersMap.get(authorId));
   });
 }

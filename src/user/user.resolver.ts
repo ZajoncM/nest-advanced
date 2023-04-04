@@ -1,6 +1,5 @@
 import {
   Args,
-  Int,
   Mutation,
   Parent,
   Query,
@@ -11,6 +10,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { BookService } from 'src/book/book.service';
+import { PaginatedUser } from './paginated-user.type';
 
 @Resolver(User)
 export class UserResolver {
@@ -19,9 +19,9 @@ export class UserResolver {
     private readonly bookService: BookService,
   ) {}
 
-  @Query(() => [User])
-  async users() {
-    return this.userService.findAll();
+  @Query(() => PaginatedUser)
+  async users(@Args('cursor', { nullable: true }) cursor: number) {
+    return this.userService.findAll(cursor);
   }
 
   @Mutation(() => User)
