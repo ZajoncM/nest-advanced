@@ -17,9 +17,8 @@ export class UserExistsRule implements ValidatorConstraintInterface {
   ) {}
 
   async validate(id: number) {
-    // console.log(this.userRepository); - is undefined
     try {
-      await User.findOneOrFail({ where: { id } });
+      await this.userRepository.findOneOrFail({ where: { id } });
     } catch (e) {
       return false;
     }

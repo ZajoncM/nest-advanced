@@ -17,11 +17,13 @@ export class TestGuard implements CanActivate {
     ]);
 
     const mergedRoles = this.reflector.getAllAndMerge<string[]>('roles', [
-      context.getHandler(),
       context.getClass(),
+      context.getHandler(),
     ]);
 
-    // console.log(roles, overridedRoles, mergedRoles);
+    console.log('get', roles);
+    console.log('getAllAndOverride', overridedRoles);
+    console.log('getAllAndMerge', mergedRoles);
 
     const request = context.switchToHttp().getRequest<Request>();
     // console.log(request.headers);

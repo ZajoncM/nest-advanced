@@ -28,7 +28,7 @@ export class AppService implements OnModuleInit, OnApplicationShutdown {
     const userId = this.cls.get('test');
 
     const value = await this.cacheManager.get('test');
-
+    console.log('cacheManager', value);
     if (value) return value;
 
     await this.cacheManager.set('test', userId);

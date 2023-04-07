@@ -7,14 +7,12 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { UserExists } from './user-exists.decorator';
 
 @Entity()
 @ObjectType()
 export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  // @UserExists()
   id: number;
 
   @Field(() => String)

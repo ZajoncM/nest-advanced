@@ -8,7 +8,7 @@ import { UserExistsRule } from './user.validation';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), BookModule],
-  providers: [UserResolver, UserService, UserExistsRule],
+  providers: [UserExistsRule, UserResolver, UserService],
   exports: [UserService],
 })
 export class UserModule {}

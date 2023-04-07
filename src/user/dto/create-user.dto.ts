@@ -1,6 +1,7 @@
 import { Field, InputType, Int, PartialType, PickType } from '@nestjs/graphql';
 import { User } from '../user.entity';
-import { UserExists } from '../user-exists.decorator';
+import { Validate } from 'class-validator';
+import { UserExistsRule } from '../user.validation';
 
 @InputType()
 export class CreateUserDto extends PickType(
@@ -12,6 +13,6 @@ export class CreateUserDto extends PickType(
 @InputType()
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @Field(() => Int)
-  @UserExists()
+  @Validate(UserExistsRule)
   id: number;
 }

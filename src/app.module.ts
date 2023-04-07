@@ -16,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
 import { FileModule } from './file/file.module';
 import { AuthzModule } from './authz/authz.module';
 import { ItemsModule } from './items/items.module';
+import { XdService } from './xd/xd.service';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -72,6 +73,7 @@ import * as Joi from '@hapi/joi';
     ExampleService,
     ExampleTwoService,
     ExampleThreeService,
+    XdService,
   ],
 })
 export class AppModule {}
